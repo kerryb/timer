@@ -12,7 +12,8 @@ config :timer, TimerWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "P6nA1yNokZ+DAdpXArO8JpOYnMwAZCTF499c1JsjTMW3HsdMRbVL68ArC5Dda3ar",
   render_errors: [view: TimerWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Timer.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Timer.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [signing_salt: "r7AadjGc7h2ZwoeHDcMY66pJzLEKll+z"]
 
 # Configures Elixir's Logger
 config :logger, :console,

@@ -23,6 +23,7 @@ defmodule TimerWeb do
 
       import Plug.Conn
       import TimerWeb.Gettext
+      import Phoenix.LiveView.Controller
       alias TimerWeb.Router.Helpers, as: Routes
     end
   end
@@ -41,6 +42,7 @@ defmodule TimerWeb do
 
       import TimerWeb.ErrorHelpers
       import TimerWeb.Gettext
+      import Phoenix.LiveView.Helpers
       alias TimerWeb.Router.Helpers, as: Routes
     end
   end
@@ -50,6 +52,7 @@ defmodule TimerWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 
