@@ -4,6 +4,7 @@
 @import "../../deps/phoenix_live_view/assets/css/live_view.css";
 
 .timer {
+  text-align: center;
   border: 2px solid gray;
   padding: 0 5rem;
   margin-bottom: 1rem;

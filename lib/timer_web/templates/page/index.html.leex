@@ -1,9 +1,7 @@
 <h1>Timer</h1>
-<section class="row">
-  <div id="timer-set">
-  </div>
-  <div id="timer-run">
-    <div class="timer"><%= @seconds_remaining %></div>
+<div id="timer-run">
+  <div class="timer"><%= @seconds_remaining %></div>
+  <div>
     <%= if @running do %>
       <a class="button" href="#" phx-click="stop">Stop</a>
     <% else %>
@@ -11,15 +9,13 @@
     <% end %>
     <a class="button button-outline" href="#" phx-click="reset">Reset</a>
   </div>
-</section>
+</div>
 <hr>
-<section class="row">
-  <div id="timer-setup">
-    <h2>Setup</h2>
-    <form phx-change="setup-change">
-      <label for="seconds">Seconds</label>
-      <input type="number" name="seconds" id="seconds"></input>
-      <submit class="button">Done</submit>
-    </form>
-  </div>
-</section>
+<div id="timer-setup">
+  <h2>Setup</h2>
+  <form phx-change="setup-change">
+    <label for="seconds">Seconds</label>
+    <input type="number" name="seconds" id="seconds"></input>
+    <submit class="button">Done</submit>
+  </form>
+</div>
