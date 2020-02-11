@@ -6,6 +6,6 @@ defmodule TimerWeb.PageLive do
   end
 
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    {:ok, socket |> assign(:seconds_remaining, 60)}
   end
 end
