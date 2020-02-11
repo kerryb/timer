@@ -18,6 +18,10 @@ defmodule TimerWeb.PageLive do
     {:noreply, socket |> assign(:running, false)}
   end
 
+  def handle_event("reset", _data, socket) do
+    {:noreply, socket |> assign(seconds_remaining: 60, running: false)}
+  end
+
   def handle_info(:tick, socket) do
     Process.send_after(self(), :tick, 1000)
     {:noreply, socket |> assign(:seconds_remaining, socket.assigns.seconds_remaining - 1)}
