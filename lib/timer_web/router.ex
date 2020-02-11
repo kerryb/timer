@@ -17,6 +17,6 @@ defmodule TimerWeb.Router do
   scope "/", TimerWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", PageLive
   end
 end
