@@ -10,7 +10,7 @@
   </div>
 <% else %>
   <div id="timer-run">
-    <div class="timer"><%= @seconds_remaining %></div>
+    <div class="timer <%= if @seconds_remaining == 0, do: "finished" %>"><%= @seconds_remaining %></div>
     <div>
       <%= if @running do %>
         <a class="button" href="#" phx-click="stop">Stop</a>

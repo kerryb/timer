@@ -10,3 +10,8 @@
   margin-bottom: 1rem;
   font-size: 20rem;
 }
+
+.timer.finished {
+  color: white;
+  background-color: red;
+}
