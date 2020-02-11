@@ -16,9 +16,9 @@
 <section class="row">
   <div id="timer-setup">
     <h2>Setup</h2>
-    <form>
+    <form phx-change="setup-change">
       <label for="seconds">Seconds</label>
-      <input type="number" id="seconds"></input>
+      <input type="number" name="seconds" id="seconds"></input>
       <submit class="button">Done</submit>
     </form>
   </div>
