@@ -36,6 +36,7 @@ defmodule TimerWeb.PageLive do
   end
 
   def handle_info(:tick, %{assigns: %{seconds_remaining: 0}} = socket) do
+    TimerWeb.Endpoint.broadcast!("klaxon", "sound", %{})
     {:noreply, socket}
   end
 
