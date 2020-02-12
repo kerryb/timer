@@ -6,8 +6,19 @@ defmodule TimerWeb.PageLive do
   end
 
   def mount(_params, _session, socket) do
+    if connected?(socket) do
+      Phoenix.PubSub.subscribe(Timer.PubSub, "notifications")
+    end
+
     {:ok,
-     socket |> assign(setup: false, start_seconds: 60, seconds_remaining: 60, running: false)}
+     socket
+     |> assign(
+       setup: false,
+       start_seconds: 60,
+       seconds_remaining: 60,
+       running: false,
+       message: nil
+     )}
   end
 
   def handle_event("start", _data, socket) do
@@ -45,5 +56,9 @@ defmodule TimerWeb.PageLive do
   def handle_info(:tick, %{assigns: %{running: true}} = socket) do
     Process.send_after(self(), :tick, 1000)
     {:noreply, socket |> assign(:seconds_remaining, socket.assigns.seconds_remaining - 1)}
+  end
+
+  def handle_info({:message, message}, socket) do
+    {:noreply, socket |> assign(:message, message)}
   end
 end

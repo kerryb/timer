@@ -15,3 +15,10 @@
   color: white;
   background-color: red;
 }
+
+.message {
+  border: 1px solid #080;
+  background-color: #cfc;
+  margin: 1rem 0;
+  padding: 1rem;
+}

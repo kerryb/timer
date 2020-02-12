@@ -1,5 +1,8 @@
 <audio id="klaxon" src="<%= Routes.static_path(TimerWeb.Endpoint, "/sounds/klaxon.wav") %>"></audio>
 <h1>Timer</h1>
+<%= if @message do %>
+  <div class="message"><%= @message %></div>
+<% end %>
 <%= if @setup do %>
   <div id="timer-setup">
     <h2>Setup</h2>
