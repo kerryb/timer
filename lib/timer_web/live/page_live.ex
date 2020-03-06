@@ -66,4 +66,8 @@ defmodule TimerWeb.PageLive do
   def handle_info(:clear_message, socket) do
     {:noreply, socket |> assign(:message, nil)}
   end
+
+  def handle_info(_, socket) do
+    {:noreply, socket}
+  end
 end
