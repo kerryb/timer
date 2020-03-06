@@ -5,11 +5,14 @@
 <% end %>
 <%= if @setup do %>
   <div id="timer-setup">
-    <h2>Setup</h2>
     <form phx-change="setup-change">
-      <label for="seconds">Seconds</label>
-      <input type="number" name="seconds" id="seconds" value="<%= @start_seconds %>"></input>
-      <submit class="button" phx-click="setup-done">Done</submit>
+      <div class="row">
+        <div class="column-20">
+          <label for="seconds">Seconds</label>
+          <input type="number" name="seconds" id="seconds" value="<%= @start_seconds %>"></input>
+          <submit class="button" phx-click="setup-done">Done</submit>
+        </div>
+      </div>
     </form>
   </div>
 <% else %>
