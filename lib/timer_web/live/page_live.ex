@@ -1,6 +1,8 @@
 defmodule TimerWeb.PageLive do
   use Phoenix.LiveView
 
+  @default_time 3
+
   def render(assigns) do
     Phoenix.View.render(TimerWeb.PageView, "index.html", assigns)
   end
@@ -14,8 +16,8 @@ defmodule TimerWeb.PageLive do
      socket
      |> assign(
        setup: false,
-       start_seconds: 60,
-       seconds_remaining: 60,
+       start_seconds: @default_time,
+       seconds_remaining: @default_time,
        running: false,
        message: nil
      )}
