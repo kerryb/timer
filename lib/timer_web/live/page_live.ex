@@ -1,5 +1,6 @@
 defmodule TimerWeb.PageLive do
   use Phoenix.LiveView
+  require Logger
 
   @default_time 3
 
@@ -69,7 +70,8 @@ defmodule TimerWeb.PageLive do
     {:noreply, socket |> assign(:message, nil)}
   end
 
-  def handle_info(_, socket) do
+  def handle_info(message, socket) do
+    Logger.debug("Received unexpected message: #{inspect(message)}")
     {:noreply, socket}
   end
 end
