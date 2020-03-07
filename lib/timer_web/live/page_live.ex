@@ -70,6 +70,11 @@ defmodule TimerWeb.PageLive do
     {:noreply, socket |> assign(:message, nil)}
   end
 
+  def handle_event(event, data, socket) do
+    Logger.debug("Received unexpected event: #{inspect(event)}, with data #{inspect(data)}")
+    {:noreply, socket}
+  end
+
   def handle_info(message, socket) do
     Logger.debug("Received unexpected message: #{inspect(message)}")
     {:noreply, socket}
