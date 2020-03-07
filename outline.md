@@ -69,3 +69,4 @@ Points to note:
 * Elixir and the BEAM have their own advantages (out of scope)
 * Example used a single live view and template, but components allow
   modularisation
+* Also wouldn't put all the business logic in the web app

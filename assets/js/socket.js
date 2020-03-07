@@ -5,12 +5,6 @@ let socket = new Socket("/socket", {})
 
 socket.connect()
 
-let channel = socket.channel("klaxon", {})
-
-channel.on("sound", _payload => {
-  document.getElementById("klaxon").play()
-})
-
 channel.join()
   .receive("ok", resp => { })
   .receive("error", resp => { console.log("Unable to join", resp) })
