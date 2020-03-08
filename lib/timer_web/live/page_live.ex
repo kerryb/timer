@@ -10,7 +10,14 @@ defmodule TimerWeb.PageLive do
 
   def mount(_params, _session, socket) do
     {:ok,
-     socket |> assign(seconds: @initial_seconds, running: false, finished: false, setup: false)}
+     socket
+     |> assign(
+       initial_seconds: @initial_seconds,
+       seconds: @initial_seconds,
+       running: false,
+       finished: false,
+       setup: false
+     )}
   end
 
   def handle_event("start", _data, socket) do
@@ -23,11 +30,16 @@ defmodule TimerWeb.PageLive do
   end
 
   def handle_event("reset", _data, socket) do
-    {:noreply, socket |> assign(seconds: @initial_seconds, running: false, finished: false)}
+    {:noreply,
+     socket |> assign(seconds: socket.assigns.initial_seconds, running: false, finished: false)}
   end
 
   def handle_event("setup", _data, socket) do
     {:noreply, socket |> assign(setup: true)}
+  end
+
+  def handle_event("setup-change", %{"seconds" => seconds}, socket) do
+    {:noreply, socket |> assign(initial_seconds: seconds)}
   end
 
   def handle_event(event, data, socket) do
