@@ -9,7 +9,8 @@ defmodule TimerWeb.PageLive do
   end
 
   def mount(_params, _session, socket) do
-    {:ok, socket |> assign(seconds: @initial_seconds, running: false, finished: false)}
+    {:ok,
+     socket |> assign(seconds: @initial_seconds, running: false, finished: false, setup: false)}
   end
 
   def handle_event("start", _data, socket) do
