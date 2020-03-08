@@ -53,6 +53,8 @@ defmodule TimerWeb.PageLive do
 
   def handle_info(:tick, %{assigns: %{seconds: seconds, running: true}} = socket)
       when seconds == 1 do
+    TimerWeb.Endpoint.broadcast!("klaxon", "sound", %{})
+
     {:noreply,
      socket |> assign(seconds: socket.assigns.seconds - 1, running: false, finished: true)}
   end
