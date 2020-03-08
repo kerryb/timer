@@ -38,6 +38,10 @@ defmodule TimerWeb.PageLive do
     {:noreply, socket |> assign(setup: true)}
   end
 
+  def handle_event("setup-done", _data, socket) do
+    {:noreply, socket |> assign(setup: false)}
+  end
+
   def handle_event("setup-change", %{"seconds" => seconds}, socket) do
     {:noreply, socket |> assign(initial_seconds: seconds)}
   end

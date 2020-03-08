@@ -3,7 +3,7 @@
     <form phx-change="setup-change">
       <label for="seconds">Seconds</label>
       <input type="number" name="seconds" id="seconds" value="3"></input>
-      <submit class="button">Done</submit>
+      <submit class="button" phx-click="setup-done">Done</submit>
     </form>
   </div>
 <% else %>
