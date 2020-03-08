@@ -23,4 +23,13 @@ defmodule TimerWeb.PageLive do
     Logger.debug("Received event #{inspect(event)}, with data #{inspect(data)}")
     {:noreply, socket}
   end
+
+  def handle_info(:tick, socket) do
+    {:noreply, socket |> assign(seconds: socket.assigns.seconds - 1)}
+  end
+
+  def handle_info(message, socket) do
+    Logger.debug("Received message #{inspect(message)}")
+    {:noreply, socket}
+  end
 end
