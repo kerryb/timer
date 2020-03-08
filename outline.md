@@ -34,18 +34,18 @@ Points to note:
     - use chrome inspector to look at what's on the websocket
 * Start clock ticking when start button pressed
     - tick using delayed message to self
-* Add handler for reset button
-    - reinforce binding and event handler
 * Stop ticking when timer is not running
     - reinforce pattern matching
+* Add handler for reset button
+    - reinforce binding and event handler
 * Handle form input change to set start seconds
     - form bindings
     - data passed to live view
 * Stop ticking when timer reaches 0
-* Toggle setup pane display, and reset when done
-    - conditional display
 * Turn red when timer reaches zero
     - dynamic classes
+* Toggle setup pane display, and reset when done
+    - conditional display
 * Sound klaxon when timer runs out
     - phoenix channels
     - javascript interop
