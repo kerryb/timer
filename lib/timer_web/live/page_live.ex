@@ -30,6 +30,11 @@ defmodule TimerWeb.PageLive do
     {:noreply, socket}
   end
 
+  def handle_info(:tick, %{assigns: %{seconds: seconds, running: true}} = socket)
+      when seconds == 1 do
+    {:noreply, socket |> assign(seconds: socket.assigns.seconds - 1, running: false)}
+  end
+
   def handle_info(:tick, %{assigns: %{running: true}} = socket) do
     tick()
     {:noreply, socket |> assign(seconds: socket.assigns.seconds - 1)}
