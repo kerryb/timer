@@ -2,12 +2,14 @@ defmodule TimerWeb.PageLive do
   use Phoenix.LiveView
   require Logger
 
+  @initial_seconds 3
+
   def render(assigns) do
     Phoenix.View.render(TimerWeb.PageView, "index.html", assigns)
   end
 
   def mount(_params, _session, socket) do
-    {:ok, socket |> assign(seconds: 3, running: false)}
+    {:ok, socket |> assign(seconds: @initial_seconds, running: false)}
   end
 
   def handle_event("start", _data, socket) do
@@ -20,7 +22,7 @@ defmodule TimerWeb.PageLive do
   end
 
   def handle_event("reset", _data, socket) do
-    {:noreply, socket |> assign(seconds: 3, running: false)}
+    {:noreply, socket |> assign(seconds: @initial_seconds, running: false)}
   end
 
   def handle_event(event, data, socket) do
