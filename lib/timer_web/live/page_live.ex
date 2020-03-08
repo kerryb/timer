@@ -70,7 +70,12 @@ defmodule TimerWeb.PageLive do
   end
 
   def handle_info({:message, message}, socket) do
+    Process.send_after(self(), :clear_message, 3000)
     {:noreply, socket |> assign(:message, message)}
+  end
+
+  def handle_info(:clear_message, socket) do
+    {:noreply, socket |> assign(:message, nil)}
   end
 
   def handle_info(message, socket) do
