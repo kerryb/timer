@@ -11,6 +11,7 @@ defmodule TimerWeb.PageLive do
   end
 
   def handle_event("start", _data, socket) do
+    Process.send_after(self(), :tick, 1000)
     {:noreply, socket |> assign(running: true)}
   end
 
