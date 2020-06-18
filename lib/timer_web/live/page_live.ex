@@ -1,89 +1,39 @@
 defmodule TimerWeb.PageLive do
-  use Phoenix.LiveView
-  require Logger
+  use TimerWeb, :live_view
 
-  @initial_seconds 3
-
-  def render(assigns) do
-    Phoenix.View.render(TimerWeb.PageView, "index.html", assigns)
+  @impl true
+  def mount(_params, _session, socket) do
+    {:ok, assign(socket, query: "", results: %{})}
   end
 
-  def mount(_params, _session, socket) do
-    if connected?(socket) do
-      Phoenix.PubSub.subscribe(Timer.PubSub, "notifications")
+  @impl true
+  def handle_event("suggest", %{"q" => query}, socket) do
+    {:noreply, assign(socket, results: search(query), query: query)}
+  end
+
+  @impl true
+  def handle_event("search", %{"q" => query}, socket) do
+    case search(query) do
+      %{^query => vsn} ->
+        {:noreply, redirect(socket, external: "https://hexdocs.pm/#{query}/#{vsn}")}
+
+      _ ->
+        {:noreply,
+         socket
+         |> put_flash(:error, "No dependencies found matching \"#{query}\"")
+         |> assign(results: %{}, query: query)}
+    end
+  end
+
+  defp search(query) do
+    if not TimerWeb.Endpoint.config(:code_reloader) do
+      raise "action disabled when not in development"
     end
 
-    {:ok,
-     socket
-     |> assign(
-       initial_seconds: @initial_seconds,
-       seconds: @initial_seconds,
-       running: false,
-       finished: false,
-       setup: false,
-       message: nil
-     )}
-  end
-
-  def handle_event("start", _data, socket) do
-    tick()
-    {:noreply, socket |> assign(running: true)}
-  end
-
-  def handle_event("stop", _data, socket) do
-    {:noreply, socket |> assign(running: false)}
-  end
-
-  def handle_event("reset", _data, socket) do
-    {:noreply,
-     socket |> assign(seconds: socket.assigns.initial_seconds, running: false, finished: false)}
-  end
-
-  def handle_event("setup", _data, socket) do
-    {:noreply, socket |> assign(setup: true)}
-  end
-
-  def handle_event("setup-done", _data, socket) do
-    {:noreply, socket |> assign(setup: false)}
-  end
-
-  def handle_event("setup-change", %{"seconds" => seconds}, socket) do
-    {:noreply, socket |> assign(initial_seconds: seconds)}
-  end
-
-  def handle_event(event, data, socket) do
-    Logger.debug("Received event #{inspect(event)}, with data #{inspect(data)}")
-    {:noreply, socket}
-  end
-
-  def handle_info(:tick, %{assigns: %{seconds: seconds, running: true}} = socket)
-      when seconds == 1 do
-    TimerWeb.Endpoint.broadcast!("klaxon", "sound", %{})
-
-    {:noreply,
-     socket |> assign(seconds: socket.assigns.seconds - 1, running: false, finished: true)}
-  end
-
-  def handle_info(:tick, %{assigns: %{running: true}} = socket) do
-    tick()
-    {:noreply, socket |> assign(seconds: socket.assigns.seconds - 1)}
-  end
-
-  def handle_info({:message, message}, socket) do
-    Process.send_after(self(), :clear_message, 3000)
-    {:noreply, socket |> assign(:message, message)}
-  end
-
-  def handle_info(:clear_message, socket) do
-    {:noreply, socket |> assign(:message, nil)}
-  end
-
-  def handle_info(message, socket) do
-    Logger.debug("Received message #{inspect(message)}")
-    {:noreply, socket}
-  end
-
-  defp tick do
-    Process.send_after(self(), :tick, 1000)
+    for {app, desc, vsn} <- Application.started_applications(),
+        app = to_string(app),
+        String.starts_with?(app, query) and not List.starts_with?(desc, ~c"ERTS"),
+        into: %{},
+        do: {app, vsn}
   end
 end

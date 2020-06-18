@@ -6,12 +6,15 @@ defmodule Timer.Application do
   use Application
 
   def start(_type, _args) do
-    # List all child processes to be supervised
     children = [
-      # Start the endpoint when the application starts
+      # Start the Telemetry supervisor
+      TimerWeb.Telemetry,
+      # Start the PubSub system
+      {Phoenix.PubSub, name: Timer.PubSub},
+      # Start the Endpoint (http/https)
       TimerWeb.Endpoint
-      # Starts a worker by calling: Timer.Worker.start_link(arg)
-      # {Timer.Worker, arg},
+      # Start a worker by calling: Timer.Worker.start_link(arg)
+      # {Timer.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

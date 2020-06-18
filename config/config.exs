@@ -10,10 +10,10 @@ use Mix.Config
 # Configures the endpoint
 config :timer, TimerWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "P6nA1yNokZ+DAdpXArO8JpOYnMwAZCTF499c1JsjTMW3HsdMRbVL68ArC5Dda3ar",
-  render_errors: [view: TimerWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Timer.PubSub, adapter: Phoenix.PubSub.PG2],
-  live_view: [signing_salt: "r7AadjGc7h2ZwoeHDcMY66pJzLEKll+z"]
+  secret_key_base: "8LfDePdPW8zf2dzTL0J904IA2sgwBqCuM27e3zwTvAywKLAIn8/D4r8SiwqN1Lde",
+  render_errors: [view: TimerWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Timer.PubSub,
+  live_view: [signing_salt: "FX3H+zH5"]
 
 # Configures Elixir's Logger
 config :logger, :console,

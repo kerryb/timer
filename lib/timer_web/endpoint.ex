@@ -7,7 +7,7 @@ defmodule TimerWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_timer_key",
-    signing_salt: "pxtU5EHc"
+    signing_salt: "wGg58w5p"
   ]
 
   socket "/socket", TimerWeb.UserSocket,
@@ -24,7 +24,7 @@ defmodule TimerWeb.Endpoint do
     at: "/",
     from: :timer,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt sounds)
+    only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -33,6 +33,10 @@ defmodule TimerWeb.Endpoint do
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
   end
+
+  plug Phoenix.LiveDashboard.RequestLogger,
+    param_key: "request_logger",
+    cookie_key: "request_logger"
 
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
