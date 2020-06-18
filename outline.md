@@ -71,6 +71,23 @@
     - updating state
     - use chrome inspector to look at what's on the websocket
 1. Start clock ticking when start button pressed
+    ```elixir
+    def handle_event("start", _params, socket) do
+      Process.send_after(self(), :tick, 1000)
+      {:noreply, assign(socket, running: true)}
+    end
+
+    @impl true
+    def handle_info(:tick, socket) do
+      Process.send_after(self(), :tick, 1000)
+      {:noreply, assign(socket, seconds: socket.assigns.seconds - 1)}
+    end
+
+    def handle_info(message, socket) do
+      Logger.warn("Received unexpected message #{inspect(message)}")
+      {:noreply, socket}
+    end
+    ```
     - tick using delayed message to self
 1. Stop ticking when timer is not running
     - reinforce pattern matching
