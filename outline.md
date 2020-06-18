@@ -69,6 +69,9 @@
 1. Sound klaxon when timer runs out
     - phoenix channels
     - javascript interop
+
+### Optional additional steps if time
+
 1. Listen for messages on PubSub channel
     - receive data from the rest of the app
     - channel forwards as a normal message to the server
