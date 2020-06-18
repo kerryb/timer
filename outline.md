@@ -71,7 +71,6 @@
     <% end %>
     ```
     - updating state
-    - use chrome inspector to look at what's on the websocket
 1. Start clock ticking when start button pressed
     ```elixir
     def handle_event("start", _params, socket) do
@@ -92,7 +91,22 @@
     ```
     - tick using delayed message to self
 1. Stop ticking when timer is not running
+    ```elixir
+    def handle_event("stop", _params, socket) do
+      {:noreply, assign(socket, running: false)}
+    end
+
+    def handle_info(:tick, %{assigns: %{running: true}} = socket) do
+      Process.send_after(self(), :tick, 1000)
+      {:noreply, assign(socket, seconds: socket.assigns.seconds - 1)}
+    end
+
+    def handle_info(:tick, socket) do
+      {:noreply, socket}
+    end
+    ```
     - reinforce pattern matching
+    - use chrome inspector to look at what's on the websocket
 1. Add handler for reset button
     - reinforce binding and event handler
 1. Handle form input change to set start seconds

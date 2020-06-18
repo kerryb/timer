@@ -13,15 +13,23 @@ defmodule TimerWeb.PageLive do
     {:noreply, assign(socket, running: true)}
   end
 
+  def handle_event("stop", _params, socket) do
+    {:noreply, assign(socket, running: false)}
+  end
+
   def handle_event(event, params, socket) do
     Logger.warn("Received unexpected event #{inspect(event)} with params #{inspect(params)}")
     {:noreply, socket}
   end
 
   @impl true
-  def handle_info(:tick, socket) do
+  def handle_info(:tick, %{assigns: %{running: true}} = socket) do
     Process.send_after(self(), :tick, 1000)
     {:noreply, assign(socket, seconds: socket.assigns.seconds - 1)}
+  end
+
+  def handle_info(:tick, socket) do
+    {:noreply, socket}
   end
 
   def handle_info(message, socket) do
