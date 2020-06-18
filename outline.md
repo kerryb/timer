@@ -270,8 +270,6 @@
     end
     ```
     - another example of sending ourselves a delayed message
-1. Ignore start button when timer is at 0
-    - guard condition
 
 # Conclusion
 
