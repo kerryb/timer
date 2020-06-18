@@ -108,7 +108,16 @@
     - reinforce pattern matching
     - use chrome inspector to look at what's on the websocket
 1. Add handler for reset button
+    ```elixir
+    def handle_event("reset", _params, socket) do
+      {:noreply, assign(socket, seconds: 3, running: false)}
+    end
+    ```
+    ```html+eex
+    <a class="button button-outline" href="#" phx-click="reset">Reset</a>
+    ```
     - reinforce binding and event handler
+    - extract magic `3` to a module attribute
 1. Handle form input change to set start seconds
     - form bindings
     - data passed to live view

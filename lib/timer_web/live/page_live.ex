@@ -2,9 +2,11 @@ defmodule TimerWeb.PageLive do
   use TimerWeb, :live_view
   require Logger
 
+  @default_seconds 3
+
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, seconds: 3, running: false)}
+    {:ok, assign(socket, seconds: @default_seconds, running: false)}
   end
 
   @impl true
@@ -15,6 +17,10 @@ defmodule TimerWeb.PageLive do
 
   def handle_event("stop", _params, socket) do
     {:noreply, assign(socket, running: false)}
+  end
+
+  def handle_event("reset", _params, socket) do
+    {:noreply, assign(socket, seconds: @default_seconds, running: false)}
   end
 
   def handle_event(event, params, socket) do
