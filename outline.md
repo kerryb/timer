@@ -15,6 +15,14 @@
 
 1. Start with static template
 1. Pass seconds remaining as an assign
+    ```elixir
+    def mount(_params, _session, socket) do
+      {:ok, assign(socket, seconds: 3)}
+    end
+    ```    
+    ```html+eex
+    <div class="timer"><%= @seconds %></div>
+    ```
 1. Add unhandled phx-click to start button
     - demonstrates declarative bindings
     - causes live view to crash and restart
