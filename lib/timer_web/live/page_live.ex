@@ -6,6 +6,10 @@ defmodule TimerWeb.PageLive do
 
   @impl true
   def mount(_params, _session, socket) do
+    if connected?(socket) do
+      Phoenix.PubSub.subscribe(Timer.PubSub, "messages")
+    end
+
     {:ok,
      assign(socket,
        seconds: @default_seconds,
@@ -63,6 +67,10 @@ defmodule TimerWeb.PageLive do
 
   def handle_info(:tick, socket) do
     {:noreply, socket}
+  end
+
+  def handle_info({:message, message}, socket) do
+    {:noreply, put_flash(socket, :info, message)}
   end
 
   def handle_info(message, socket) do

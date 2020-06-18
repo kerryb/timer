@@ -242,13 +242,22 @@
 ### Optional additional steps if time
 
 1. Listen for messages on PubSub channel
+    ```elixir
+    def mount(_params, _session, socket) do
+      if connected?(socket) do
+        Phoenix.PubSub.subscribe(Timer.PubSub, "messages")
+      end
+      ...
+
+    def handle_info({:message, message}, socket) do
+      {:noreply, put_flash(socket, :info, message)}
+    end
+
+    # in iex:
+    Phoenix.PubSub.broadcast Timer.PubSub, "messages", {:message, "Hello!"}
+    ```
     - receive data from the rest of the app
-    - channel forwards as a normal message to the server
-    - `Phoenix.PubSub.broadcast Timer.PubSub, "notifications", {:message, "Hello!"}`
-1. Print out unexpected messages
-    - could reply if required
-1. Display message on screen
-    - just uses socket state like everything else
+    - not specific to LiveView
 1. Clear message after 3s
     - another example of sending ourselves a delayed message
 1. Ignore start button when timer is at 0
