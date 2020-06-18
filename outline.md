@@ -24,6 +24,9 @@
     <div class="timer"><%= @seconds %></div>
     ```
 1. Add unhandled phx-click to start button
+    ```html+eex
+    <a class="button" href="#" phx-click="start">Start</a>
+    ```
     - demonstrates declarative bindings
     - causes live view to crash and restart
 1. Print out unexpected events
