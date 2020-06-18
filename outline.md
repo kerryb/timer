@@ -143,7 +143,40 @@
     - form bindings
     - data passed to live view
 1. Stop ticking when timer reaches 0
+    ```elixir
+    def handle_info(:tick, %{assigns: %{seconds: 1, running: true}} = socket) do
+      {:noreply, assign(socket, seconds: 0)}
+    end
+    ```
 1. Turn red when timer reaches zero
+    ```elixir
+    def mount(_params, _session, socket) do
+      {:ok,
+       assign(socket,
+         seconds: @default_seconds,
+         init_seconds: @default_seconds,
+         running: false,
+         finished: false
+       )}
+    end
+
+    def handle_event("start", _params, socket) do
+      Process.send_after(self(), :tick, 1000)
+      {:noreply, assign(socket, running: true, finished: false)}
+    end
+
+    def handle_event("reset", _params, socket) do
+      {:noreply,
+       assign(socket, seconds: socket.assigns.init_seconds, running: false, finished: false)}
+    end
+
+    def handle_info(:tick, %{assigns: %{seconds: 1, running: true}} = socket) do
+      {:noreply, assign(socket, seconds: 0, finished: true)}
+    end
+    ```
+    ```html+eex
+    <div class="timer <%= if @finished, do: "finished" %>"><%= @seconds %></div>
+    ```
     - dynamic classes
 1. Toggle setup pane display, and reset when done
     - conditional display
