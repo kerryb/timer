@@ -29,7 +29,14 @@
     ```
     - demonstrates declarative bindings
     - causes live view to crash and restart
-1. Print out unexpected events
+1. Log unexpected events
+    ```elixir
+    @impl true
+    def handle_event(event, params, socket) do
+      Logger.warn("Received unexpected event #{inspect(event)} with params #{inspect(params)}")
+      {:noreply, socket}
+    end
+    ```
     - event loop (pass socket/state back)
 1. Add handler for start button
     - just print out a message
