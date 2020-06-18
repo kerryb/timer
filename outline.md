@@ -259,6 +259,16 @@
     - receive data from the rest of the app
     - not specific to LiveView
 1. Clear message after 3s
+    ```elixir
+    def handle_info({:message, message}, socket) do
+      Process.send_after(self(), :clear_message, 3000)
+      {:noreply, put_flash(socket, :info, message)}
+    end
+
+    def handle_info(:clear_message, socket) do
+      {:noreply, clear_flash(socket)}
+    end
+    ```
     - another example of sending ourselves a delayed message
 1. Ignore start button when timer is at 0
     - guard condition
