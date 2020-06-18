@@ -8,6 +8,11 @@ defmodule TimerWeb.PageLive do
   end
 
   @impl true
+  def handle_event("start", _params, socket) do
+    Logger.info("Start")
+    {:noreply, socket}
+  end
+
   def handle_event(event, params, socket) do
     Logger.warn("Received unexpected event #{inspect(event)} with params #{inspect(params)}")
     {:noreply, socket}

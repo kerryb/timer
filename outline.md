@@ -38,7 +38,14 @@
     end
     ```
     - event loop (pass socket/state back)
-1. Add handler for start button
+1. Add handler for start event
+    ```elixir
+    @impl true
+    def handle_event("start", _params, socket) do
+      Logger.info("Start")
+      {:noreply, socket}
+    end
+    ```
     - just print out a message
     - demonstrates receiving events
     - pattern matching
