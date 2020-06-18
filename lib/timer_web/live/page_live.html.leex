@@ -1,7 +1,7 @@
 <div id="timer-setup">
-  <form>
+  <form phx-change="setup-change">
     <label for="seconds">Seconds</label>
-    <input type="number" name="seconds" id="seconds" value="3"></input>
+    <input type="number" name="seconds" id="seconds" value="<%= @init_seconds %>"></input>
     <submit class="button">Done</submit>
   </form>
 </div>

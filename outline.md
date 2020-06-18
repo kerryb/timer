@@ -119,6 +119,27 @@
     - reinforce binding and event handler
     - extract magic `3` to a module attribute
 1. Handle form input change to set start seconds
+    ```elixir
+    def mount(_params, _session, socket) do
+      {:ok,
+       assign(socket, seconds: @default_seconds, init_seconds: @default_seconds, running: false)}
+    end
+
+    def handle_event("reset", _params, socket) do
+      {:noreply, assign(socket, seconds: socket.assigns.init_seconds, running: false)}
+    end
+
+    def handle_event("setup-change", %{"seconds" => seconds}, socket) do
+      {:noreply, assign(socket, init_seconds: String.to_integer(seconds))}
+    end
+    ```
+    ```html+eex
+    <form phx-change="setup-change">
+      <label for="seconds">Seconds</label>
+      <input type="number" name="seconds" id="seconds" value="<%= @init_seconds %>"></input>
+      <submit class="button">Done</submit>
+    </form>
+    ```
     - form bindings
     - data passed to live view
 1. Stop ticking when timer reaches 0
