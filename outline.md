@@ -208,6 +208,16 @@
     <% end %>
     ```
     - conditional display
+1. Show flash if initial seconds is invalid (blank)
+    ```elixir
+    def handle_event("setup-change", %{"seconds" => seconds}, socket) do
+      case Integer.parse(seconds) do
+        {s, _} -> {:noreply, socket |> assign(init_seconds: s) |> clear_flash()}
+        _ -> {:noreply, put_flash(socket, :error, "Invalid number")}
+      end
+    end
+    ```
+    - flash
 1. Sound klaxon when timer runs out
     - phoenix channels
     - javascript interop

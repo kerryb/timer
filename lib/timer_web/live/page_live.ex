@@ -36,7 +36,10 @@ defmodule TimerWeb.PageLive do
   end
 
   def handle_event("setup-change", %{"seconds" => seconds}, socket) do
-    {:noreply, assign(socket, init_seconds: String.to_integer(seconds))}
+    case Integer.parse(seconds) do
+      {s, _} -> {:noreply, socket |> assign(init_seconds: s) |> clear_flash()}
+      _ -> {:noreply, put_flash(socket, :error, "Invalid number")}
+    end
   end
 
   def handle_event("close-setup", _params, socket) do
