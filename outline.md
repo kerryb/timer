@@ -8,6 +8,8 @@
     - Every client's instance of a live view is a process
     - Millions of processes in one thread
     - Event loop, similar to React etc
+    - Events are processed sequentially within a process
+    - Separate processes run in parallel
     - Virtual DOM, with only diffs sent when the page changes
     - Framework handles supervision, restarting, message loop etc
 
