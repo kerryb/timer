@@ -8,7 +8,7 @@
   </div>
 <% else %>
   <div id="timer-run">
-    <div class="timer <%= if @finished, do: "finished" %>"><%= @seconds %></div>
+    <div id="timer" class="timer <%= if @finished, do: "finished" %>" phx-hook="Timer"><%= @seconds %></div>
     <%= if @running do %>
       <a class="button" href="#" phx-click="stop">Stop</a>
     <% else %>

@@ -219,8 +219,25 @@
     ```
     - flash
 1. Sound klaxon when timer runs out
-    - phoenix channels
+    ```javascript
+    import Klaxon from "./klaxon"
+
+    let Hooks = {}
+    Hooks.Timer = {
+      updated() {
+        if (this.el.classList.contains("finished")) {
+          Klaxon.sound()
+        }
+      }
+    }
+
+    let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}, hooks: Hooks})
+    ```
+    ```html+eex
+    <div id="timer" class="timer <%= if @finished, do: "finished" %>" phx-hook="Timer"><%= @seconds %></div>
+    ```
     - javascript interop
+    - Phoenix also has channels (broadcast to all clients), presence and pubsub
 
 ### Optional additional steps if time
 
