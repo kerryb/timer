@@ -50,6 +50,24 @@
     - demonstrates receiving events
     - pattern matching
 1. Toggle start/stop button
+    ```elixir
+    @impl true
+    def mount(_params, _session, socket) do
+      {:ok, assign(socket, seconds: 3, running: false)}
+    end
+
+    @impl true
+    def handle_event("start", _params, socket) do
+      {:noreply, assign(socket, running: true)}
+    end
+    ```
+    ```html+eex
+    <%= if @running do %>
+      <a class="button" href="#" phx-click="stop">Stop</a>
+    <% else %>
+      <a class="button" href="#" phx-click="start">Start</a>
+    <% end %>
+    ```
     - updating state
     - use chrome inspector to look at what's on the websocket
 1. Start clock ticking when start button pressed
