@@ -11,7 +11,8 @@ defmodule TimerWeb.PageLive do
        seconds: @default_seconds,
        init_seconds: @default_seconds,
        running: false,
-       finished: false
+       finished: false,
+       setup: false
      )}
   end
 
@@ -30,8 +31,16 @@ defmodule TimerWeb.PageLive do
      assign(socket, seconds: socket.assigns.init_seconds, running: false, finished: false)}
   end
 
+  def handle_event("open-setup", _params, socket) do
+    {:noreply, assign(socket, setup: true)}
+  end
+
   def handle_event("setup-change", %{"seconds" => seconds}, socket) do
     {:noreply, assign(socket, init_seconds: String.to_integer(seconds))}
+  end
+
+  def handle_event("close-setup", _params, socket) do
+    {:noreply, assign(socket, setup: false)}
   end
 
   def handle_event(event, params, socket) do

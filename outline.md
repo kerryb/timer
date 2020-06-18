@@ -179,6 +179,34 @@
     ```
     - dynamic classes
 1. Toggle setup pane display, and reset when done
+    ```elixir
+    def mount(_params, _session, socket) do
+      {:ok,
+       assign(socket,
+         ...
+         setup: false
+       )}
+    end
+
+    def handle_event("open-setup", _params, socket) do
+      {:noreply, assign(socket, setup: true)}
+    end
+
+    def handle_event("close-setup", _params, socket) do
+      {:noreply, assign(socket, setup: false)}
+    end
+    ```
+    ```html+eex
+    <%= if @setup do %>
+      ...
+          <submit class="button" phx-click="close-setup">Done</submit>
+      ...
+    <% else %>
+      ...
+        <a class="button button-outline" href="#" phx-click="open-setup">Setup</a>
+      ...
+    <% end %>
+    ```
     - conditional display
 1. Sound klaxon when timer runs out
     - phoenix channels
