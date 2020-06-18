@@ -89,3 +89,25 @@
 .alert:empty {
   display: none;
 }
+
+/* App-specific stuff */
+
+.timer {
+  text-align: center;
+  border: 2px solid gray;
+  padding: 0 5rem;
+  margin-bottom: 1rem;
+  font-size: 20rem;
+}
+
+.timer.finished {
+  color: white;
+  background-color: red;
+}
+
+.message {
+  border: 1px solid #080;
+  background-color: #cfc;
+  margin: 1rem 0;
+  padding: 1rem;
+}
