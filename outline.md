@@ -2,67 +2,62 @@
 
 ## Introduction
 
-History?
+* History
+* Premonition (video)
+* Points to note:
+    - Every client's instance of a live view is a process
+    - Millions of processes in one thread
+    - Event loop, similar to React etc
+    - Virtual DOM, with only diffs sent when the page changes
+    - Framework handles supervision, restarting, message loop etc
 
-Premonition (video?)
+## Demo
 
-Points to note:
-
-* Every client's instance of a live view is a process
-* Millions of processes in one thread
-* Event loop, similar to React etc
-* Virtual DOM, with only diffs sent when the page changes
-* Framework handles supervision, restarting, message loop etc
-
-## Demo
-
-* Start with static site
-* Replace controller with dumb live view
-    - no change to [lack of] behaviour
-* Pass seconds remaining as an assign
-* Add unhandled phx-click to start button
+1. Start with static template
+1. Pass seconds remaining as an assign
+1. Add unhandled phx-click to start button
     - demonstrates declarative bindings
     - causes live view to crash and restart
-* Print out unexpected events
+1. Print out unexpected events
     - event loop (pass socket/state back)
-* Add handler for start button
+1. Add handler for start button
     - just print out a message
     - demonstrates receiving events
     - pattern matching
-* Toggle start/stop button
+1. Toggle start/stop button
     - updating state
     - use chrome inspector to look at what's on the websocket
-* Start clock ticking when start button pressed
+1. Start clock ticking when start button pressed
     - tick using delayed message to self
-* Stop ticking when timer is not running
+1. Stop ticking when timer is not running
     - reinforce pattern matching
-* Add handler for reset button
+1. Add handler for reset button
     - reinforce binding and event handler
-* Handle form input change to set start seconds
+1. Handle form input change to set start seconds
     - form bindings
     - data passed to live view
-* Stop ticking when timer reaches 0
-* Turn red when timer reaches zero
+1. Stop ticking when timer reaches 0
+1. Turn red when timer reaches zero
     - dynamic classes
-* Toggle setup pane display, and reset when done
+1. Toggle setup pane display, and reset when done
     - conditional display
-* Sound klaxon when timer runs out
+1. Sound klaxon when timer runs out
     - phoenix channels
     - javascript interop
-* Listen for messages on PubSub channel
+1. Listen for messages on PubSub channel
     - receive data from the rest of the app
     - channel forwards as a normal message to the server
     - `Phoenix.PubSub.broadcast Timer.PubSub, "notifications", {:message, "Hello!"}`
-* Print out unexpected messages
+1. Print out unexpected messages
     - could reply if required
-* Display message on screen
+1. Display message on screen
     - just uses socket state like everything else
-* Clear message after 3s
+1. Clear message after 3s
     - another example of sending ourselves a delayed message
-* Ignore start button when timer is at 0
+1. Ignore start button when timer is at 0
     - guard condition
 
-# Conclusion
+# Conclusion
 
 * A large subset of React etc, with no need to use two languages
 * Obviously you could use Node, and all JS, but options are good
