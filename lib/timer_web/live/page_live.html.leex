@@ -1,14 +1,20 @@
-<div id="timer-setup">
-  <form>
-    <label for="seconds">Seconds</label>
-    <input type="number" name="seconds" id="seconds" value="3"></input>
-    <submit class="button">Done</submit>
-  </form>
-</div>
-
-<div id="timer-run">
-  <div class="timer">3</div>
-  <a class="button" href="#">Start</a>
-  <a class="button button-outline" href="#">Reset</a>
-  <a class="button button-outline" href="#">Setup</a>
-</div>
+<%= if @setup do %>
+  <div id="timer-setup">
+    <form phx-change="setup-change">
+      <label for="seconds">Seconds</label>
+      <input type="number" name="seconds" id="seconds" value="<%= @init_seconds %>"></input>
+      <submit class="button" phx-click="setup-close">Done</submit>
+    </form>
+  </div>
+<%= else %>
+  <div id="timer-run">
+    <div class="timer <%= if @finished, do: "finished" %>" phx-hook= "Timer"><%= @seconds %></div>
+    <%= if @running do %>
+      <a class="button" href="#" phx-click="stop">Stop</a>
+    <% else %>
+      <a class="button" href="#" phx-click="start">Start</a>
+    <% end %>
+    <a class="button button-outline" href="#" phx-click="reset">Reset</a>
+    <a class="button button-outline" href="#" phx-click="setup-open">Setup</a>
+  </div>
+<%= end %>
